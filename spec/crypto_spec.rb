@@ -3,6 +3,7 @@
 require_relative '../credit_card'
 require_relative '../substitution_cipher'
 require_relative '../double_trans_cipher'
+require_relative '../sk_cipher'
 require 'minitest/autorun'
 require 'minitest/rg'
 
@@ -13,7 +14,8 @@ describe 'Test card info encryption' do
     @keys = [3, 100, 114_514, 1_919_810, 1_145_141_919_810, 2_147_483_647]
   end
 
-  ciphers = [SubstitutionCipher::Caesar, SubstitutionCipher::Permutation, DoubleTranspositionCipher]
+  ciphers = [SubstitutionCipher::Caesar, SubstitutionCipher::Permutation, DoubleTranspositionCipher,
+             ModernSymmetricCipher]
 
   ciphers.each do |cipher|
     describe "Using #{cipher}" do
