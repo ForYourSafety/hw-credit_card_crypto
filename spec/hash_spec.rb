@@ -8,7 +8,7 @@ require 'yaml'
 card_details = YAML.load_file 'spec/test_cards.yml'
 
 cards = card_details.map do |c|
-  CreditCard.new(c[:num], c[:exp], c[:name], c[:net])
+  CreditCard.new(c["num"], c["exp"], c["name"], c["net"])
 end
 
 describe 'Test hashing requirements' do
