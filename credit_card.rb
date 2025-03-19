@@ -4,7 +4,7 @@ require_relative './luhn_validator'
 require 'json'
 require 'rbnacl'
 
-class CreditCard
+class CreditCard # rubocop:disable Style/Documentation
   include LuhnValidator
 
   # instance variables with automatic getter/setter methods
