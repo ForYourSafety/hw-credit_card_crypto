@@ -2,8 +2,9 @@
 
 require_relative './luhn_validator'
 require 'json'
+require 'rbnacl'
 
-class CreditCard
+class CreditCard # rubocop:disable Style/Documentation
   include LuhnValidator
 
   # instance variables with automatic getter/setter methods
@@ -33,11 +34,14 @@ class CreditCard
 
   # return a new CreditCard object given a serialized (JSON) representation
   def self.from_s(card_s)
-    # TODO: deserializing a CreditCard object
+    data = JSON.parse(card_s) # 解析 JSON 字串成 Hash
+    CreditCard.new(data['number'], data['expiration_date'], data['owner'], data['credit_network'])
   end
+  # TODO: deserializing a CreditCard object
 
   # return a hash of the serialized credit card object
   def hash
+    to_json.hash
     # TODO: implement this method
     #   - Produce a hash (using default hash method) of the credit card's
     #     serialized contents.
@@ -46,6 +50,7 @@ class CreditCard
 
   # return a cryptographically secure hash
   def hash_secure
+    RbNaCl::Hash.sha256(to_json)
     # TODO: implement this method
     #   - Use sha256 to create a cryptographically secure hash.
     #   - Credit cards with identical information should produce the same hash
